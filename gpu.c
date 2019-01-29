@@ -151,14 +151,12 @@ void renderTiles(int scanLine){
 		int pixel = getPixelData(byte1, byte2, 7 - (x % 8));
 
 		int bgPixel = applyPalette(getBGPallete(), pixel);
-		int spritePixel = oamDraw(scanLine, i);
+		int spritePixel = oamDraw(scanLine, i, bgPixel);
 
 		// check which pixel to display based on priority of sprite
 		// where a value less than 3 is to display the sprite, a value of 4 means the sprite doesnt have priority
 		// and 5 means there is no sprite at this pixel
 		if(spritePixel <= 3){
-			LCDScreen[i][scanLine] = spritePixel;
-		}else if(spritePixel == 4 && bgPixel == 0){
 			LCDScreen[i][scanLine] = spritePixel;
 		}else{
 			LCDScreen[i][scanLine] = bgPixel;
@@ -181,15 +179,15 @@ void oamSearch(){
 		spriteArray[i].xFlip = (byte4 & 0x20) >> 5;
 		spriteArray[i].pallete = (byte4 & 0x10) >> 4;
 
-		if(spriteArray[i].tileNo != 0){
-			printf("%x\n", spriteArray[i].tileNo);
-		}
+		//if(spriteArray[i].tileNo != 0){
+		//	printf("%x\n",getOBPalette(spriteArray[i].pallete));
+		//}
 
 		i++;
 	}
 }
 
-unsigned int oamDraw(int scanLine, int x){
+unsigned int oamDraw(int scanLine, int x, int bgPixel){
 	for(int i = 0; i < 40; i++){
 		Sprite sprite = spriteArray[i];
 
@@ -204,8 +202,9 @@ unsigned int oamDraw(int scanLine, int x){
 			int pixel = getPixelData(byte1, byte2, 7 - (x % 8));
 			int palleteData = applyPalette(getOBPalette(sprite.pallete), pixel);
 
-			// the sprite has a priority of 1, it is to be drawn behind the background, else draw it
-			if(sprite.priority == 1){
+			// the sprite has a priority of 1, it is to be drawn behind the background, unless the background is 0
+			// else draw it
+			if(sprite.priority == 1 && bgPixel != 0){
 				return 4;
 			}else{
 				return palleteData;

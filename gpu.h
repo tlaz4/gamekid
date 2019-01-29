@@ -27,6 +27,6 @@ void renderTiles(int scanLine);
 int getPixelData(unsigned char byte1, unsigned char byte2, int idx);
 unsigned char testRender(int scanline, int x);
 void oamSearch();
-unsigned int oamDraw(int scanLine, int x);
+unsigned int oamDraw(int scanLine, int x, int bgPixel);
 
 void test();

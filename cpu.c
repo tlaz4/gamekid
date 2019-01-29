@@ -2301,7 +2301,7 @@ void JPZ(CPURegisters *registers){
 // implement shift instructions here
 void PREFIXCB(CPURegisters *registers){
 	unsigned char cbOpcode = readByte(registers->pc + 1);
-	printf("missing instruction: %x\n", cbOpcode);
+	//printf("missing instruction: %x\n", cbOpcode);
 	CPUInstruction cbInstruction = cbInstructions[(unsigned int)cbOpcode];
 
 	//printf("Prefix instruction: %s\n", cbInstruction.instruction);

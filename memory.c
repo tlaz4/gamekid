@@ -37,7 +37,7 @@ unsigned char bootRom[256] =
 void loadRom(){
 	FILE *cart;
 
-	cart = fopen("09-op r,r.gb", "rb");
+	cart = fopen("Tetris.gb", "rb");
 	fread(rom, 0x8000, 1, cart);
 }
 
