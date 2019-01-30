@@ -37,7 +37,7 @@ unsigned char bootRom[256] =
 void loadRom(){
 	FILE *cart;
 
-	cart = fopen("Tetris.gb", "rb");
+	cart = fopen("roms/Dr. Mario (W) (V1.1).gb", "rb");
 	fread(rom, 0x8000, 1, cart);
 }
 

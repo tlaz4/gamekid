@@ -66,6 +66,10 @@ int getInput(){
                     case SDLK_RETURN:
                         writeToJoypad('n');
                         break;
+
+                    case SDLK_a:
+                        writeToJoypad('a');
+                        break;
                 }
             break;
         }
@@ -91,6 +95,11 @@ int getInput(){
                     case SDLK_RETURN:
                         writeToJoypad('b');
                         break;
+
+                    case SDLK_a:
+                        writeToJoypad('@');
+                        break;
+
                 }
             break;
         }

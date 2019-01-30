@@ -71,7 +71,7 @@ const CPUInstruction cbInstructions[256] = {
 	{"SRL B", 2, 8, SRLB}, {}, {}, {}, {}, {}, {}, {"SRL A", 2, 8, SRLA}, // 0x03
 
 
-	{"BIT 0,B", 2, 8, BIT0B}, {"BIT 0,C", 2, 8, BIT0C}, {}, {}, {}, {}, {"BIT 0,(HL)", 2, 16, BIT0HL}, {},
+	{"BIT 0,B", 2, 8, BIT0B}, {"BIT 0,C", 2, 8, BIT0C}, {}, {}, {}, {}, {"BIT 0,(HL)", 2, 16, BIT0HL}, {"BIT 0,A", 2, 8, BIT0A},
 	{"BIT 1,B", 2, 8, BIT1B}, {}, {}, {}, {}, {}, {}, {"BIT 1,A", 2, 8, BIT1A}, // 0x04
 
 
@@ -108,7 +108,7 @@ const CPUInstruction cbInstructions[256] = {
 
 
 											{}, {}, {}, {}, {}, {}, {}, {},
-											{}, {}, {}, {}, {}, {}, {}, {}, // 0xd
+											{"SET 3,B", 2, 8, SET3B}, {}, {}, {}, {}, {}, {}, {}, // 0xd
 
 
 											{}, {}, {}, {}, {}, {}, {}, {},
@@ -116,7 +116,7 @@ const CPUInstruction cbInstructions[256] = {
 
 
 											{}, {}, {}, {}, {}, {}, {}, {},
-											{}, {}, {}, {}, {}, {}, {"SET 7,HL", 2, 16, SET7HL}, {}}; // 0xf
+											{"SET 7,B", 2, 8, SET7B}, {}, {}, {}, {}, {}, {"SET 7,HL", 2, 16, SET7HL}, {}}; // 0xf
 
 CPURegisters registers;
 unsigned short breakpoint = 0xffff;
@@ -2854,6 +2854,11 @@ void BIT0HL(CPURegisters *registers){
 	setHalfCarryFlag(registers);
 }
 
+void BIT0A(CPURegisters *registers){
+	z80BIT(registers, &(registers->a), 0x01);
+}
+
+
 void BIT1B(CPURegisters *registers){
 	z80BIT(registers, &(registers->b), 0x02);
 }
@@ -2931,6 +2936,14 @@ void BIT1A(CPURegisters *registers){
 
 void SET1E(CPURegisters *registers){
 	registers->e |= 0x1;
+}
+
+void SET3B(CPURegisters *registers){
+	registers->b |= 0x08;
+}
+
+void SET7B(CPURegisters *registers){
+	registers->b |= 0x80;
 }
 
 void SET7HL(CPURegisters *registers){

@@ -361,6 +361,7 @@ void z80BIT(CPURegisters *registers, unsigned char *theRegister, unsigned char m
 void BIT0B(CPURegisters *registers);
 void BIT0C(CPURegisters *registers);
 void BIT0HL(CPURegisters *registers);
+void BIT0A(CPURegisters *registers);
 void BIT1B(CPURegisters *registers);
 
 void BIT2B(CPURegisters *registers);
@@ -391,6 +392,10 @@ void BIT1A(CPURegisters *registers);
 void RLC(CPURegisters *registers);
 
 void SET1E(CPURegisters *registers);
+
+void SET3B(CPURegisters *registers);
+
+void SET7B(CPURegisters *registers);
 void SET7HL(CPURegisters *registers);
 
 void RES0A(CPURegisters *registers);

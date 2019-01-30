@@ -50,6 +50,17 @@ void writeToJoypad(unsigned char value){
 	else if(value == 'b'){
 		joyRegs[1] |= 0x08;
 	}
+
+	// key press of a
+	else if(value == 'a'){
+		joyRegs[1] &= 0x0e;
+		writeByte(0xff0f, 0x10);
+	}
+
+	// key up a 
+	else if(value == '@'){
+		joyRegs[1] |= 0x01;
+	}
 }
 
 unsigned char getJoyState(){

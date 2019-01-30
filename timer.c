@@ -8,9 +8,8 @@ void updateTimer(unsigned char clock){
 	unsigned char timerControl = readByte(0xff07);
 
 	// check if timer is enabled
+	timeClock += clock;
 	if((timerControl & 0x04) == 0x04){
-		timeClock += clock;
-		printf("increment clock");
 		unsigned int timerCounter = clockSelect();
 
 		if(timeClock >= timerCounter){
@@ -22,7 +21,13 @@ void updateTimer(unsigned char clock){
 			}else{
 				incrementClock(0xff05);
 			}
-
+		}
+	// if clock is > 256, we need to reset the div timer, else we increment it
+	}if(timeClock >= 256){
+		if(readByte(0xff04) == 0xff){
+			writeByte(0xff04, 0x00);
+		}else{
+			incrementClock(0xff04);
 		}
 	}
 } 

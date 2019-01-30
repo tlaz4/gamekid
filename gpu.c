@@ -179,10 +179,6 @@ void oamSearch(){
 		spriteArray[i].xFlip = (byte4 & 0x20) >> 5;
 		spriteArray[i].pallete = (byte4 & 0x10) >> 4;
 
-		//if(spriteArray[i].tileNo != 0){
-		//	printf("%x\n",getOBPalette(spriteArray[i].pallete));
-		//}
-
 		i++;
 	}
 }
@@ -277,7 +273,7 @@ void gpu(unsigned char lastCycle){
 					writeLCDCYCoord(scanLine);
 					gpuClock = 0;
 					scanLine++;
-					usleep(2);
+					usleep(1);
 				}if(scanLine > 153){
 					scanLine = 0;
 					gpuClock = 0;

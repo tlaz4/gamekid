@@ -50,7 +50,7 @@ int main(int argc, char* args[]){
 		quit = getInput();
 		unsigned char thisLen = cpu();
 		gpu(thisLen);
-		//updateTimer(thisLen);
+		updateTimer(thisLen);
 		interrupt();
 	}
 		
